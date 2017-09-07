@@ -66,6 +66,11 @@ class FlickrClient {
         params[Constants.FlickrParameterKeys.Extras] = Constants.FlickrParameterValues.MediumURL
         params[Constants.FlickrParameterKeys.PerPage] = Constants.FlickrParameterValues.PerPage
         
+        params[Constants.FlickrParameterKeys.Latitude] = String(coordinate.latitude)
+        params[Constants.FlickrParameterKeys.Longitude] = String(coordinate.longitude)
+        params[Constants.FlickrParameterKeys.Radius] = Constants.FlickrParameterValues.Radius
+        params[Constants.FlickrParameterKeys.RadiusUnit] = Constants.FlickrParameterValues.UnitKM
+        
         if page != nil {
             params[Constants.FlickrParameterKeys.Page] = String(page!)
         }
@@ -74,7 +79,7 @@ class FlickrClient {
         var request = URLRequest(url: components.url!)
         request.httpMethod = "GET"
         
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error != nil {
                 completion(nil, error?.localizedDescription)
                 return
@@ -97,6 +102,8 @@ class FlickrClient {
             
             completion(photosObj, nil)
         }
+        
+        task.resume()
     }
     
     func requestTotalPages( coordinate : CLLocationCoordinate2D, completion : @escaping ((Int?, String?) -> Void)) {
@@ -106,7 +113,7 @@ class FlickrClient {
                 return
             }
             
-            guard let totalPages = photosObj?[Constants.FlickrResponseKeys.Photo] as? Int else {
+            guard let totalPages = photosObj?[Constants.FlickrResponseKeys.Pages] as? Int else {
                 completion(nil, Constants.ErrorMessages.ParseJson)
                 return
             }
@@ -132,7 +139,7 @@ class FlickrClient {
                     return
                 }
                 
-                guard let photos = photosObj?[Constants.FlickrResponseKeys.Photos] as? [[String : AnyObject?]] else {
+                guard let photos = photosObj?[Constants.FlickrResponseKeys.Photo] as? [[String : AnyObject?]] else {
                     completion(nil, Constants.ErrorMessages.ParseJson)
                     return
                 }

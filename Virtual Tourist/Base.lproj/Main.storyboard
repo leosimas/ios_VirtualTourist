@@ -63,6 +63,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="74" y="56"/>
         </scene>
         <!--Photo Album View Controller-->
         <scene sceneID="izn-CV-PR4">
@@ -138,6 +139,7 @@
                         <outlet property="collectionView" destination="2K7-6u-qLn" id="Fea-9g-JBb"/>
                         <outlet property="loadingView" destination="y36-ue-CUG" id="PgG-BH-mJQ"/>
                         <outlet property="mapView" destination="6ll-wf-Agq" id="zTU-lW-r5u"/>
+                        <outlet property="newCollectionButton" destination="upV-Mc-TDS" id="bty-SN-x9J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ccn-8h-Ypd" userLabel="First Responder" sceneMemberID="firstResponder"/>

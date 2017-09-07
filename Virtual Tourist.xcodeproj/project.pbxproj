@@ -18,6 +18,7 @@
 		A349B9EF1F618C50003B01B1 /* TouristManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349B9EE1F618C50003B01B1 /* TouristManager.swift */; };
 		A349B9F21F61946D003B01B1 /* AlbumPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349B9F11F61946D003B01B1 /* AlbumPin.swift */; };
 		A349B9F41F61C25C003B01B1 /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349B9F31F61C25C003B01B1 /* PhotoAlbumViewController.swift */; };
+		A349B9F61F61CF7D003B01B1 /* Dialogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349B9F51F61CF7D003B01B1 /* Dialogs.swift */; };
 		A38715501F5F8103004E0AB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A387154F1F5F8103004E0AB0 /* AppDelegate.swift */; };
 		A38715521F5F8103004E0AB0 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38715511F5F8103004E0AB0 /* MapViewController.swift */; };
 		A38715551F5F8103004E0AB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A38715531F5F8103004E0AB0 /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 		A349B9EE1F618C50003B01B1 /* TouristManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TouristManager.swift; path = Model/TouristManager.swift; sourceTree = "<group>"; };
 		A349B9F11F61946D003B01B1 /* AlbumPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlbumPin.swift; path = View/AlbumPin.swift; sourceTree = "<group>"; };
 		A349B9F31F61C25C003B01B1 /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
+		A349B9F51F61CF7D003B01B1 /* Dialogs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dialogs.swift; path = View/Dialogs.swift; sourceTree = "<group>"; };
 		A387154C1F5F8103004E0AB0 /* Virtual Tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A387154F1F5F8103004E0AB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A38715511F5F8103004E0AB0 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				A349B9F11F61946D003B01B1 /* AlbumPin.swift */,
+				A349B9F51F61CF7D003B01B1 /* Dialogs.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A349B9E91F618472003B01B1 /* Photo+CoreDataProperties.swift in Sources */,
+				A349B9F61F61CF7D003B01B1 /* Dialogs.swift in Sources */,
 				A349B9EB1F618472003B01B1 /* Pin+CoreDataProperties.swift in Sources */,
 				A349B9F41F61C25C003B01B1 /* PhotoAlbumViewController.swift in Sources */,
 				A349B9E81F618472003B01B1 /* Photo+CoreDataClass.swift in Sources */,
