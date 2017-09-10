@@ -61,8 +61,6 @@ class MapViewController: UIViewController {
     }
     
     func displayAlbum(pin : Pin) {
-        print("displayAlbum for \(pin)")
-        
         let photoAlbumVC = storyboard!.instantiateViewController(withIdentifier: "PhotoAlbumViewController") as! PhotoAlbumViewController
         photoAlbumVC.pin = pin
         navigationController!.pushViewController(photoAlbumVC, animated: true)
@@ -91,6 +89,7 @@ extension MapViewController : MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let albumPin = view.annotation as! AlbumPin
         displayAlbum(pin: albumPin.pin!)
+        mapView.deselectAnnotation(albumPin, animated: false)
     }
     
 }

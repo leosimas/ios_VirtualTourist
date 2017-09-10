@@ -28,11 +28,15 @@ class TouristManager {
         return pin
     }
     
-    func addPhotos(for pin : Pin, with urls : [String]) -> [Photo] {
+    func addPhotos(for pin : Pin, with jsonArray : [[String:AnyObject?]]) throws -> [Photo] {
         var photos : [Photo] = []
         
-        for url in urls {
-            let photo = Photo(pin : pin, url: url, context: stack.context)
+        for json in jsonArray {
+            guard let id = json[Constants.FlickrResponseKeys.Id] as? String, let url = json[Constants.FlickrResponseKeys.MediumURL] as? String else {
+                throw Exception.ParseJson(Constants.ErrorMessages.ParseJson)
+            }
+            
+            let photo = Photo(pin : pin, id : id, url: url, context: stack.context)
             photos.append( photo )
             
             self.download(photo: photo)
@@ -40,6 +44,15 @@ class TouristManager {
         stack.save()
         
         return photos
+    }
+    
+    func createPinFetchController(pin : Pin) -> NSFetchedResultsController<NSFetchRequestResult> {
+        let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
+        fr.sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
+        fr.predicate = NSPredicate(format: "pin = %@", argumentArray: [pin])
+        
+        return NSFetchedResultsController(fetchRequest: fr, managedObjectContext:stack.context, sectionNameKeyPath: nil, cacheName: nil)
+        
     }
     
     func listPins() -> [Pin] {
@@ -81,19 +94,15 @@ class TouristManager {
             
             print("\(String(describing: photosJsonArray))")
             
-            var urls : [String] = []
-            
-            for photoJson in photosJsonArray! {
-                guard let urlString = photoJson[Constants.FlickrResponseKeys.MediumURL] as? String else {
-                    completion(nil, Constants.ErrorMessages.ParseJson)
-                    return
-                }
-                
-                urls.append( urlString )
+            do {
+                let photos = try self.addPhotos(for: pin, with: photosJsonArray!)
+                completion(photos, nil)
+            } catch Exception.ParseJson(let errorMessage) {
+                completion(nil, errorMessage)
+            } catch {
+                completion(nil, "unknown error")
             }
             
-            let photos = self.addPhotos(for: pin, with: urls)
-            completion(photos, nil)
         }
     }
     
@@ -109,6 +118,10 @@ class TouristManager {
             self.stack.save()
         }
         task.resume()
+    }
+    
+    enum Exception : Error {
+        case ParseJson(String)
     }
     
 }
