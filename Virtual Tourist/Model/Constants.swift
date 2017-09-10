@@ -40,7 +40,7 @@ struct Constants {
         static let GalleryPhotosMethod = "flickr.galleries.getPhotos"
         static let MediumURL = "url_m"
         static let UseSafeSearch = "1"
-        static let PerPage = "10"
+        static let PerPage = "12"
         static let UnitKM = "km"
         static let Radius = "10"
     }

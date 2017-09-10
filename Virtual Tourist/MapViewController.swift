@@ -74,7 +74,6 @@ extension MapViewController : MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let id = "pinView"
         
-        
         var view = mapView.dequeueReusableAnnotationView(withIdentifier: id) as? MKPinAnnotationView
         if(view == nil) {
             let albumPin = annotation as! AlbumPin

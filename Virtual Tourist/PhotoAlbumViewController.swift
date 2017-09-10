@@ -14,7 +14,7 @@ class PhotoAlbumViewController : UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var loadingView: UIActivityIndicatorView!
+    @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var newCollectionButton: UIBarButtonItem!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
