@@ -100,6 +100,15 @@ class TouristManager {
         }
     }
     
+    func delete(photo : Photo) {
+        do{
+            try stack.context.delete(photo)
+            stack.save()
+        }catch {
+            print("deletePhoto error: \(error)")
+        }
+    }
+    
     func downloadAlbum(for pin : Pin, completion : @escaping( ([Photo]?, String?)->Void )) {
         let coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
         

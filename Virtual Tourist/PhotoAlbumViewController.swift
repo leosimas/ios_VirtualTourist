@@ -49,6 +49,7 @@ class PhotoAlbumViewController : UIViewController {
         } else {
             executeSearch()
             setEnableUI(true)
+            self.labelNoImages.isHidden = true
         }
         
     }
@@ -104,8 +105,8 @@ class PhotoAlbumViewController : UIViewController {
     
 }
 
-// Mark: UICollectionViewDataSource
-extension PhotoAlbumViewController : UICollectionViewDataSource {
+// Mark: UICollectionViewDataSource and UICollectionViewDelegate
+extension PhotoAlbumViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return getPhotosCount()
@@ -116,6 +117,14 @@ extension PhotoAlbumViewController : UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoViewCell", for: indexPath) as! PhotoViewCell
         cell.setupCellWith(photo)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let photo = fetchController!.object(at: indexPath) as! Photo
+        TouristManager.sharedInstance().delete(photo : photo)
+        executeSearch()
+//        collectionView.deleteItems(at: [indexPath])
+        collectionView.reloadData()
     }
     
 }

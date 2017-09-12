@@ -130,6 +130,7 @@
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="X6K-xO-ec9" id="Pz8-kO-JCn"/>
+                                    <outlet property="delegate" destination="X6K-xO-ec9" id="Hx5-to-aAY"/>
                                 </connections>
                             </collectionView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="6ll-wf-Agq">
