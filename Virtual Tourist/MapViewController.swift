@@ -21,14 +21,18 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(onMapLongPress)))
-        
         listPins = TouristManager.sharedInstance().listPins()
     
-        fillMap()
+        loadMap()
     }
     
-    func fillMap() {
+    func loadMap() {
+        mapView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(onMapLongPress)))
+        
+        if let center = TouristManager.sharedInstance().loadMapCenter() {
+            mapView.setRegion(center, animated: false)
+        }
+        
         mapView.removeAnnotations( mapView.annotations )
         if listPins == nil {
             return
@@ -89,6 +93,10 @@ extension MapViewController : MKMapViewDelegate {
         let albumPin = view.annotation as! AlbumPin
         displayAlbum(pin: albumPin.pin!)
         mapView.deselectAnnotation(albumPin, animated: false)
+    }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        TouristManager.sharedInstance().saveMapCenter(mapView.region)
     }
     
 }

@@ -68,4 +68,11 @@ struct Constants {
         static let ParseJson = "Failed to parse JSON response"
     }
     
+    struct UserDefaults {
+        static let MapCenterLatitude = "mapCenterLatitude"
+        static let MapCenterLongitude = "mapCenterLongitude"
+        static let MapCenterLatitudeDelta = "mapCenterLatitudeDelta"
+        static let MapCenterLongitudeDelta = "mapCenterLongitudeDelta"
+    }
+    
 }

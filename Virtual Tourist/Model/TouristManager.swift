@@ -22,6 +22,23 @@ class TouristManager {
         return shared!
     }
     
+    func saveMapCenter(_ region : MKCoordinateRegion) {
+        UserDefaults.standard.set(region.center.latitude, forKey: Constants.UserDefaults.MapCenterLatitude)
+        UserDefaults.standard.set(region.center.longitude, forKey: Constants.UserDefaults.MapCenterLongitude)
+        UserDefaults.standard.set(region.span.latitudeDelta, forKey: Constants.UserDefaults.MapCenterLatitudeDelta)
+        UserDefaults.standard.set(region.span.longitudeDelta, forKey: Constants.UserDefaults.MapCenterLongitudeDelta)
+    }
+    
+    func loadMapCenter() -> MKCoordinateRegion? {
+        guard let latitude = UserDefaults.standard.object(forKey: Constants.UserDefaults.MapCenterLatitude) as? Double, let longitude = UserDefaults.standard.object(forKey: Constants.UserDefaults.MapCenterLongitude) as? Double, let latitudeDelta = UserDefaults.standard.object(forKey: Constants.UserDefaults.MapCenterLatitudeDelta) as? Double, let longitudeDelta = UserDefaults.standard.object(forKey: Constants.UserDefaults.MapCenterLongitudeDelta) as? Double else {
+            return nil
+        }
+        
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let span = MKCoordinateSpan(latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta)
+        return MKCoordinateRegion(center: coordinate, span: span)
+    }
+    
     func addPin(coordinate : CLLocationCoordinate2D) -> Pin {
         let pin = Pin(latitude: coordinate.latitude, longitude: coordinate.longitude, context: stack.context)
         stack.save()
