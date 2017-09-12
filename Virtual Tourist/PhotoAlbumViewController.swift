@@ -18,6 +18,7 @@ class PhotoAlbumViewController : UIViewController {
     @IBOutlet weak var newCollectionButton: UIBarButtonItem!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
+    @IBOutlet weak var labelNoImages: UILabel!
     var pin : Pin?
     fileprivate var fetchController : NSFetchedResultsController<NSFetchRequestResult>?
     
@@ -65,6 +66,7 @@ class PhotoAlbumViewController : UIViewController {
         }
         
         setEnableUI(false)
+        labelNoImages.isHidden = true
         
         TouristManager.sharedInstance().downloadAlbum(for: pin) { (photos, errorMessage) in
             if errorMessage != nil {
@@ -77,6 +79,7 @@ class PhotoAlbumViewController : UIViewController {
             DispatchQueue.main.async {
                 self.executeSearch()
                 self.setEnableUI(true)
+                self.labelNoImages.isHidden = self.getPhotosCount() != 0
             }
             
         }
@@ -91,17 +94,21 @@ class PhotoAlbumViewController : UIViewController {
         newCollection()
     }
     
+    fileprivate func getPhotosCount() -> Int {
+        guard let fetch = fetchController, let sections = fetch.sections, sections.count > 0 else {
+            return 0
+        }
+        
+        return sections[0].numberOfObjects
+    }
+    
 }
 
 // Mark: UICollectionViewDataSource
 extension PhotoAlbumViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let fetch = fetchController, let sections = fetch.sections else {
-            return 0
-        }
-        
-        return sections[section].numberOfObjects
+        return getPhotosCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

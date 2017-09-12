@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="RBL-7O-oXQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="RBL-7O-oXQ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -153,10 +153,17 @@
                                     <constraint firstItem="y36-ue-CUG" firstAttribute="centerX" secondItem="fAM-Pj-zlE" secondAttribute="centerX" id="qN9-vo-2Ro"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No images found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LdD-IA-Yqd">
+                                <rect key="frame" x="122" y="375" width="130" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gzc-wB-fHg" firstAttribute="width" secondItem="4gP-ZX-ZOw" secondAttribute="width" id="0EY-QT-PkF"/>
+                            <constraint firstItem="LdD-IA-Yqd" firstAttribute="centerX" secondItem="2K7-6u-qLn" secondAttribute="centerX" id="0FE-Nj-I8P"/>
                             <constraint firstItem="6ll-wf-Agq" firstAttribute="width" secondItem="4gP-ZX-ZOw" secondAttribute="width" id="1VG-ac-fYE"/>
                             <constraint firstItem="2K7-6u-qLn" firstAttribute="top" secondItem="6ll-wf-Agq" secondAttribute="bottom" id="8H0-R7-nbL"/>
                             <constraint firstItem="gzc-wB-fHg" firstAttribute="top" secondItem="2K7-6u-qLn" secondAttribute="bottom" id="AOU-a7-Kgs"/>
@@ -167,12 +174,14 @@
                             <constraint firstItem="2K7-6u-qLn" firstAttribute="centerX" secondItem="4gP-ZX-ZOw" secondAttribute="centerX" id="Wgn-B0-Yfu"/>
                             <constraint firstItem="6ll-wf-Agq" firstAttribute="top" secondItem="6iv-fg-0Y9" secondAttribute="bottom" id="YWx-q4-Xag"/>
                             <constraint firstItem="gzc-wB-fHg" firstAttribute="centerX" secondItem="4gP-ZX-ZOw" secondAttribute="centerX" id="aWo-sb-Noj"/>
+                            <constraint firstItem="LdD-IA-Yqd" firstAttribute="centerY" secondItem="2K7-6u-qLn" secondAttribute="centerY" id="nG1-Xv-wuS"/>
                             <constraint firstItem="WHP-5n-yJk" firstAttribute="top" secondItem="gzc-wB-fHg" secondAttribute="bottom" id="xBf-oO-STk"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="2K7-6u-qLn" id="Fea-9g-JBb"/>
                         <outlet property="flowLayout" destination="Gys-TL-MB8" id="NJs-ek-ZvK"/>
+                        <outlet property="labelNoImages" destination="LdD-IA-Yqd" id="31r-QR-7OQ"/>
                         <outlet property="loadingView" destination="fAM-Pj-zlE" id="Wuk-RN-J7O"/>
                         <outlet property="mapView" destination="6ll-wf-Agq" id="zTU-lW-r5u"/>
                         <outlet property="newCollectionButton" destination="upV-Mc-TDS" id="bty-SN-x9J"/>
@@ -180,7 +189,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ccn-8h-Ypd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="908" y="56"/>
+            <point key="canvasLocation" x="908" y="55.322338830584712"/>
         </scene>
     </scenes>
 </document>
