@@ -40,6 +40,7 @@ class MapViewController: UIViewController {
         
         for pin in listPins! {
             let albumPin = AlbumPin()
+            albumPin.title = "AlbumPin"
             albumPin.coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
             albumPin.pin = pin
             
@@ -77,13 +78,16 @@ extension MapViewController : MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let id = "pinView"
+        let albumPin = annotation as! AlbumPin
         
         var view = mapView.dequeueReusableAnnotationView(withIdentifier: id) as? MKPinAnnotationView
         if(view == nil) {
-            let albumPin = annotation as! AlbumPin
             view = MKPinAnnotationView(annotation: albumPin, reuseIdentifier: id)
             view!.animatesDrop = albumPin.animated
+            view!.isDraggable = true
             albumPin.animated = false
+        } else {
+            view!.annotation = albumPin
         }
         
         return view

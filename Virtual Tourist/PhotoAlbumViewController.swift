@@ -123,8 +123,8 @@ extension PhotoAlbumViewController : UICollectionViewDataSource, UICollectionVie
         let photo = fetchController!.object(at: indexPath) as! Photo
         TouristManager.sharedInstance().delete(photo : photo)
         executeSearch()
-//        collectionView.deleteItems(at: [indexPath])
         collectionView.reloadData()
+        labelNoImages.isHidden = getPhotosCount() > 0
     }
     
 }

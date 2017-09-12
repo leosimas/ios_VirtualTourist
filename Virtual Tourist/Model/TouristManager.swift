@@ -45,6 +45,17 @@ class TouristManager {
         return pin
     }
     
+    func change(pin : Pin, coordinate : CLLocationCoordinate2D) {
+        pin.latitude = coordinate.latitude
+        pin.longitude = coordinate.longitude
+        pin.photos = nil
+        stack.save()
+        
+        downloadAlbum(for: pin) { (photos, errorMessage) in
+            print("change pin \(pin), errorMessage = \(errorMessage)")
+        }
+    }
+    
     func addPhotos(for pin : Pin, with jsonArray : [[String:AnyObject?]]) throws -> [Photo] {
         var photos : [Photo] = []
         
