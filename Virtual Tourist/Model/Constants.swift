@@ -13,6 +13,7 @@ struct Constants {
         static let APIScheme = "https"
         static let APIHost = "api.flickr.com"
         static let APIPath = "/services/rest"
+        static let MaxPhotos = 4000
     }
     
     // MARK: Flickr Parameter Keys
@@ -57,6 +58,7 @@ struct Constants {
         static let Pages = "pages"
         static let Total = "total"
         static let Id = "id"
+        static let PerPage = "perpage"
     }
     
     // MARK: Flickr Response Values

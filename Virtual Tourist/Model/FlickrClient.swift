@@ -106,32 +106,34 @@ class FlickrClient {
         task.resume()
     }
     
-    func requestTotalPages( coordinate : CLLocationCoordinate2D, completion : @escaping ((Int?, String?) -> Void)) {
+    func requestPagesInfo( coordinate : CLLocationCoordinate2D, completion : @escaping ((Int?, Int?, Int?, String?) -> Void)) {
         requestPhotos(coordinate: coordinate, page : nil) { (photosObj, errorMessage) in
             if errorMessage != nil {
-                completion(nil, errorMessage)
+                completion(nil, nil, nil, errorMessage)
                 return
             }
             
-            guard let totalPages = photosObj?[Constants.FlickrResponseKeys.Pages] as? Int else {
-                completion(nil, Constants.ErrorMessages.ParseJson)
+            guard let totalPages = photosObj?[Constants.FlickrResponseKeys.Pages] as? Int,  let totalPhotosString = photosObj?[Constants.FlickrResponseKeys.Total] as? String, let perPage = photosObj?[Constants.FlickrResponseKeys.PerPage] as? Int else {
+                completion(nil, nil, nil, Constants.ErrorMessages.ParseJson)
                 return
             }
             
             
-            completion(totalPages, nil)
+            completion(totalPages, Int(totalPhotosString), perPage, nil)
         }
     }
     
     func requestPhotosFor(coordinate : CLLocationCoordinate2D, completion : @escaping (([[String : AnyObject?]]?, String?) -> Void)) {
         
-        requestTotalPages(coordinate: coordinate) { (totalPages, errorMessage) in
+        requestPagesInfo(coordinate: coordinate) { (totalPages, totalPhotos, perPage, errorMessage) in
             if errorMessage != nil {
                 completion(nil, errorMessage)
                 return
             }
             
-            let selectedPage = Int(arc4random_uniform(UInt32(totalPages!)) + 1)
+            let maxPhotos = min(Constants.Flickr.MaxPhotos, totalPhotos!)
+            
+            let selectedPage = Int(arc4random_uniform(UInt32( maxPhotos / perPage! )) + 1)
             
             self.requestPhotos(coordinate: coordinate, page: selectedPage) { (photosObj, errorMessage) in
                 if errorMessage != nil {

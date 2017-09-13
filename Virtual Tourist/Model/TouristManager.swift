@@ -100,24 +100,23 @@ class TouristManager {
     }
     
     func deletePhotos(of pin : Pin) {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
-        let deleteRequest = NSBatchDeleteRequest( fetchRequest: fetchRequest)
-        fetchRequest.predicate = NSPredicate(format: "pin = %@", pin)
-        
-        do{
-            try stack.context.execute(deleteRequest)
-        }catch {
-            print("deletePhotos error: \(error)")
-        }
+        pin.photos = nil
+        stack.save()
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
+//        let deleteRequest = NSBatchDeleteRequest( fetchRequest: fetchRequest)
+//        fetchRequest.predicate = NSPredicate(format: "pin = %@", pin)
+//        
+//        do{
+//            try stack.context.execute(deleteRequest)
+//            stack.save()
+//        }catch {
+//            print("deletePhotos error: \(error)")
+//        }
     }
     
     func delete(photo : Photo) {
-        do{
-            try stack.context.delete(photo)
-            stack.save()
-        }catch {
-            print("deletePhoto error: \(error)")
-        }
+        stack.context.delete(photo)
+        stack.save()
     }
     
     func downloadAlbum(for pin : Pin, completion : @escaping( ([Photo]?, String?)->Void )) {
