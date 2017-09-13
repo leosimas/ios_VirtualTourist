@@ -64,10 +64,12 @@ class TouristManager {
                 throw Exception.ParseJson(Constants.ErrorMessages.ParseJson)
             }
             
-            let photo = Photo(pin : pin, id : id, url: url, context: stack.context)
-            photos.append( photo )
-            
-            self.download(photo: photo)
+            stack.context.performAndWait {
+                let photo = Photo(pin : pin, id : id, url: url, context: self.stack.context)
+                photos.append( photo )
+                
+                self.download(photo: photo)
+            }
         }
         stack.save()
         
@@ -150,8 +152,10 @@ class TouristManager {
                 return
             }
             
-            photo.image = data! as NSData
-            self.stack.save()
+            self.stack.context.performAndWait {
+                photo.image = data! as NSData
+                self.stack.save()
+            }
         }
         task.resume()
     }
