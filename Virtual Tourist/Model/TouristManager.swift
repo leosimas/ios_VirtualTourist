@@ -102,18 +102,18 @@ class TouristManager {
     }
     
     func deletePhotos(of pin : Pin) {
-        pin.photos = nil
-        stack.save()
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
-//        let deleteRequest = NSBatchDeleteRequest( fetchRequest: fetchRequest)
-//        fetchRequest.predicate = NSPredicate(format: "pin = %@", pin)
-//        
-//        do{
-//            try stack.context.execute(deleteRequest)
-//            stack.save()
-//        }catch {
-//            print("deletePhotos error: \(error)")
-//        }
+//        pin.photos = nil
+//        stack.save()
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
+        let deleteRequest = NSBatchDeleteRequest( fetchRequest: fetchRequest)
+        fetchRequest.predicate = NSPredicate(format: "pin = %@", pin)
+        
+        do{
+            try stack.context.execute(deleteRequest)
+            stack.save()
+        }catch {
+            print("deletePhotos error: \(error)")
+        }
     }
     
     func delete(photo : Photo) {

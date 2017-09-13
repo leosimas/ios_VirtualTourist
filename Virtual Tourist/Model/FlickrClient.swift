@@ -24,18 +24,18 @@ class FlickrClient {
     }
     
     private func createBasicUrl(parameters : [String:AnyObject]) -> URLComponents {
-        var c = URLComponents()
-        c.scheme = Constants.Flickr.APIScheme
-        c.host = Constants.Flickr.APIHost
-        c.path = Constants.Flickr.APIPath
-        c.queryItems = [URLQueryItem]()
+        var components = URLComponents()
+        components.scheme = Constants.Flickr.APIScheme
+        components.host = Constants.Flickr.APIHost
+        components.path = Constants.Flickr.APIPath
+        components.queryItems = [URLQueryItem]()
         
         for (key, value) in parameters {
             let queryItem = URLQueryItem(name: key, value: "\(value)")
-            c.queryItems!.append(queryItem)
+            components.queryItems!.append(queryItem)
         }
         
-        return c
+        return components
     }
     
     private func createBasicParams() -> [String:String] {
