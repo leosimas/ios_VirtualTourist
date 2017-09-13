@@ -18,6 +18,8 @@ class MapViewController: UIViewController {
     
     @IBOutlet weak var constraintHideCollection: NSLayoutConstraint!
     
+    fileprivate var currentAlbumPin : AlbumPin?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,20 +51,23 @@ class MapViewController: UIViewController {
     }
     
     func onMapLongPress(gesture : UIGestureRecognizer) {
-        if gesture.state != .began {
-            return
-        }
         
         let viewLocation = gesture.location(in: mapView)
         let coordinate = mapView.convert(viewLocation, toCoordinateFrom: mapView)
         
-        let albumPin = AlbumPin()
-        albumPin.coordinate = coordinate
-        albumPin.animated = true
+        if gesture.state == .began {
+            let albumPin = AlbumPin()
+            albumPin.coordinate = coordinate
+            albumPin.animated = true
+            mapView.addAnnotation(albumPin)
+            currentAlbumPin = albumPin
+        } else if gesture.state == .changed {
+            currentAlbumPin?.coordinate = coordinate
+        } else if gesture.state == .ended {
+            currentAlbumPin?.coordinate = coordinate
+            currentAlbumPin?.pin = TouristManager.sharedInstance().addPin(coordinate: coordinate)
+        }
         
-        mapView.addAnnotation(albumPin)
-        
-        albumPin.pin = TouristManager.sharedInstance().addPin(coordinate: coordinate)
     }
     
     func displayAlbum(pin : Pin) {
@@ -84,7 +89,6 @@ extension MapViewController : MKMapViewDelegate {
         if(view == nil) {
             view = MKPinAnnotationView(annotation: albumPin, reuseIdentifier: id)
             view!.animatesDrop = albumPin.animated
-            view!.isDraggable = true
             albumPin.animated = false
         } else {
             view!.annotation = albumPin
